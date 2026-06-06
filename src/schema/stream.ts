@@ -13,6 +13,7 @@ export const stream = pgTable(
     status: text("status").notNull(),
     scheduledFor: timestamp("scheduled_for", { withTimezone: true }),
     threadsPostId: text("threads_post_id"),
+    threadsPostUrl: text("threads_post_url"),
     livekitRoom: text("livekit_room").notNull(),
     hlsPlaybackUrl: text("hls_playback_url"),
     recordingUrl: text("recording_url"),

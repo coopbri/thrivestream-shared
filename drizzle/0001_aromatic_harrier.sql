@@ -1,0 +1,1 @@
+ALTER TABLE "stream" ADD COLUMN "threads_post_url" text;
