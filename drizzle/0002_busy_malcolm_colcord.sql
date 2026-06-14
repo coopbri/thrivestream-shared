@@ -1,0 +1,2 @@
+ALTER TABLE "threads_identity" ADD COLUMN "autopost_enabled" boolean DEFAULT false NOT NULL;--> statement-breakpoint
+ALTER TABLE "threads_identity" ADD COLUMN "chat_mirror_enabled" boolean DEFAULT false NOT NULL;

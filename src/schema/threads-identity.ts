@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { boolean, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { user } from "./user";
 
 export const threadsIdentity = pgTable("threads_identity", {
@@ -11,4 +11,10 @@ export const threadsIdentity = pgTable("threads_identity", {
   expiresAt: timestamp("expires_at", { withTimezone: true }),
   scopes: text("scopes").notNull(),
   lastRefreshAt: timestamp("last_refresh_at", { withTimezone: true }),
+  // Per-creator opt-in for the go-live Threads announcement. Gated together with
+  // the platform `threads-autopost` flag (both must be on)
+  autopostEnabled: boolean("autopost_enabled").notNull().default(false),
+  // Per-creator opt-in for mirroring live chat into the go-live post. Requires
+  // autopostEnabled (no post = nothing to mirror) and the `threads-mirror` flag
+  chatMirrorEnabled: boolean("chat_mirror_enabled").notNull().default(false),
 });
