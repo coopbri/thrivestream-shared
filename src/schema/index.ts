@@ -7,3 +7,4 @@ export * from "./chat-message";
 export * from "./chat-moderation";
 export * from "./mirror-job";
 export * from "./stream-clip";
+export * from "./whitelist";
