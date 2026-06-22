@@ -11,10 +11,10 @@ export const threadsIdentity = pgTable("threads_identity", {
   expiresAt: timestamp("expires_at", { withTimezone: true }),
   scopes: text("scopes").notNull(),
   lastRefreshAt: timestamp("last_refresh_at", { withTimezone: true }),
-  // Per-creator opt-in for the go-live Threads announcement. Gated together with
-  // the platform `threads-autopost` flag (both must be on)
+  // Per-creator opt-in for the go-live Threads announcement. This toggle is the
+  // sole gate on whether the announcement posts (off by default)
   autopostEnabled: boolean("autopost_enabled").notNull().default(false),
   // Per-creator opt-in for mirroring live chat into the go-live post. Requires
-  // autopostEnabled (no post = nothing to mirror) and the `threads-mirror` flag
+  // autopostEnabled (no post = nothing to mirror); off by default
   chatMirrorEnabled: boolean("chat_mirror_enabled").notNull().default(false),
 });
