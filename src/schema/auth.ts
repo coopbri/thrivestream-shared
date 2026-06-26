@@ -12,6 +12,11 @@ export const user = pgTable("user", {
     .defaultNow()
     .$onUpdate(() => new Date())
     .notNull(),
+  // Set when Meta's data-deletion callback fires (app revoked/uninstalled). The
+  // account is soft-deleted: access is revoked immediately but content is
+  // retained until a grace period elapses, then purged by purgePendingDeletions.
+  // Signing back in clears this, so an accidental app-revoke is recoverable.
+  deletionRequestedAt: timestamp("deletion_requested_at", { withTimezone: true }),
 });
 
 export const session = pgTable(
