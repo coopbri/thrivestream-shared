@@ -36,6 +36,13 @@
       "when": 1782445109999,
       "tag": "0004_majestic_genesis",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1782751742418,
+      "tag": "0005_huge_oracle",
+      "breakpoints": true
     }
   ]
 }

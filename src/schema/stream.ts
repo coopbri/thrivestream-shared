@@ -1,4 +1,12 @@
-import { index, integer, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import {
+  boolean,
+  index,
+  integer,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+} from "drizzle-orm/pg-core";
 import { user } from "./user";
 
 export const stream = pgTable(
@@ -15,8 +23,16 @@ export const stream = pgTable(
     threadsPostId: text("threads_post_id"),
     threadsPostUrl: text("threads_post_url"),
     livekitRoom: text("livekit_room").notNull(),
+    // Per-stream recording opt-in (default off). When true and FLAG_RECORDING_HLS
+    // is on, the worker starts a LiveKit egress job at go-live (see the VOD design
+    // doc). Most streams leave this false, so they produce no recording bytes.
+    recordEnabled: boolean("record_enabled").notNull().default(false),
     hlsPlaybackUrl: text("hls_playback_url"),
     recordingUrl: text("recording_url"),
+    // When the recording should be deleted. The worker reaper removes the stored
+    // objects past this instant and nulls the URLs above (Garage has no native
+    // lifecycle; R2 would use a bucket rule). Null = kept indefinitely ("Keep").
+    recordingExpiresAt: timestamp("recording_expires_at", { withTimezone: true }),
     startedAt: timestamp("started_at", { withTimezone: true }),
     endedAt: timestamp("ended_at", { withTimezone: true }),
     viewerPeak: integer("viewer_peak").notNull().default(0),
