@@ -29,6 +29,12 @@ export const stream = pgTable(
     recordEnabled: boolean("record_enabled").notNull().default(false),
     hlsPlaybackUrl: text("hls_playback_url"),
     recordingUrl: text("recording_url"),
+    // Whether the finalized recording (replay) is publicly listed. Private by
+    // default: a recording finalizes owner-only and the creator explicitly
+    // publishes it. Non-owners only see ended streams whose recording is public
+    // (enforced server-side in the streamVisibility plugin). Independent of
+    // recordingExpiresAt, so the retention reaper still applies either way.
+    recordingPublic: boolean("recording_public").notNull().default(false),
     // When the recording should be deleted. The worker reaper removes the stored
     // objects past this instant and nulls the URLs above (Garage has no native
     // lifecycle; R2 would use a bucket rule). Null = kept indefinitely ("Keep").
