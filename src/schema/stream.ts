@@ -23,6 +23,12 @@ export const stream = pgTable(
     threadsPostId: text("threads_post_id"),
     threadsPostUrl: text("threads_post_url"),
     livekitRoom: text("livekit_room").notNull(),
+    // Video orientation, chosen at go-live (defaulting from the broadcaster's
+    // device). Drives the egress capture dimensions (landscape 16:9 vs portrait
+    // 9:16) and the viewer player aspect. Landscape by default so existing
+    // streams and pre-toggle clients are unchanged. Validated app-side against
+    // STREAM_ORIENTATION (text, not pgEnum, per house style).
+    orientation: text("orientation").notNull().default("landscape"),
     // Per-stream recording opt-in (default off). When true and FLAG_RECORDING_HLS
     // is on, the worker starts a LiveKit egress job at go-live (see the VOD design
     // doc). Most streams leave this false, so they produce no recording bytes.
@@ -49,3 +55,6 @@ export const stream = pgTable(
 
 export const STREAM_STATUS = ["scheduled", "live", "ended", "errored"] as const;
 export type StreamStatus = (typeof STREAM_STATUS)[number];
+
+export const STREAM_ORIENTATION = ["landscape", "portrait"] as const;
+export type StreamOrientation = (typeof STREAM_ORIENTATION)[number];

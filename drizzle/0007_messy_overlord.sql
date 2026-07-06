@@ -1,0 +1,1 @@
+ALTER TABLE "stream" ADD COLUMN "orientation" text DEFAULT 'landscape' NOT NULL;
