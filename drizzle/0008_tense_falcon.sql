@@ -1,0 +1,1 @@
+ALTER TABLE "stream" ADD COLUMN "recording_keep" boolean DEFAULT false NOT NULL;

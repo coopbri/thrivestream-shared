@@ -43,8 +43,14 @@ export const stream = pgTable(
     recordingPublic: boolean("recording_public").notNull().default(false),
     // When the recording should be deleted. The worker reaper removes the stored
     // objects past this instant and nulls the URLs above (Garage has no native
-    // lifecycle; R2 would use a bucket rule). Null = kept indefinitely ("Keep").
+    // lifecycle; R2 would use a bucket rule). Null while unset or while kept; a
+    // recording is retained indefinitely when recordingKeep is true (see below).
     recordingExpiresAt: timestamp("recording_expires_at", { withTimezone: true }),
+    // Creator "keep" pin. When true, the recording is retained indefinitely: the
+    // worker holds recordingExpiresAt null and the retention reaper skips it, so
+    // a creator can save a replay past the default retention window. Default off,
+    // so recordings follow the normal retention schedule unless explicitly kept.
+    recordingKeep: boolean("recording_keep").notNull().default(false),
     startedAt: timestamp("started_at", { withTimezone: true }),
     endedAt: timestamp("ended_at", { withTimezone: true }),
     viewerPeak: integer("viewer_peak").notNull().default(0),
