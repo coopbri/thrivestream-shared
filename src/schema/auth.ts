@@ -3,10 +3,21 @@ import { boolean, index, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
+  // The Threads handle, refreshed from the profile on every sign-in. Mutable:
+  // its owner can rename, and Threads can hand a released handle to someone
+  // else, so this is display state and never an identity or authorization key.
   name: text("name").notNull(),
+  // Synthetic <threadsUserId>@threads.invalid placeholder, not a real inbox.
+  // Keyed on the stable Threads id because better-auth resolves identity through
+  // this column (see lib/threadsProfile).
   email: text("email").notNull().unique(),
   emailVerified: boolean("email_verified").default(false).notNull(),
   image: text("image"),
+  // Authoritative admin marker, bootstrapped once from ADMIN_HANDLES (see
+  // lib/adminPolicy) and read on every admin check thereafter. Lives on the row
+  // so admin follows the account through a rename, and so a handle that changes
+  // hands never carries the role with it.
+  role: text("role"),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { withTimezone: true })
     .defaultNow()
