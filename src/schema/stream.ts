@@ -51,6 +51,12 @@ export const stream = pgTable(
     // a creator can save a replay past the default retention window. Default off,
     // so recordings follow the normal retention schedule unless explicitly kept.
     recordingKeep: boolean("recording_keep").notNull().default(false),
+    // Whether the ABR quality ladder has been resolved for this recording. Set
+    // true once the worker has either built the smaller renditions (720p/480p) +
+    // master playlist or determined the source is too small for any rung, so the
+    // ladder sweep never reprocesses it. Gated behind FLAG_RECORDING_LADDER; when
+    // the flag is off this stays false and no ladder work runs.
+    recordingLadderReady: boolean("recording_ladder_ready").notNull().default(false),
     startedAt: timestamp("started_at", { withTimezone: true }),
     endedAt: timestamp("ended_at", { withTimezone: true }),
     viewerPeak: integer("viewer_peak").notNull().default(0),

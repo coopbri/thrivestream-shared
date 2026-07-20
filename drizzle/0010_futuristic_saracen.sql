@@ -1,0 +1,1 @@
+ALTER TABLE "stream" ADD COLUMN "recording_ladder_ready" boolean DEFAULT false NOT NULL;
