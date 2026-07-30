@@ -22,6 +22,11 @@ export const whitelistHandle = pgTable(
     // the gate matches on, so an invite survives its owner renaming and is never
     // inherited by whoever later claims the freed handle.
     threadsUserId: text("threads_user_id").unique(),
+    // The Omni account email an invite is written against, once sign-in moves off
+    // Threads. Nullable because every invite written before that cutover is keyed
+    // on a handle and bound by threadsUserId instead, and because an invite may be
+    // written under either key while both doors are open.
+    email: text("email").unique(),
     // Optional note for why/who this handle was invited.
     note: text("note"),
     // Admin who added the handle, kept for auditing. Null for seeded rows.
