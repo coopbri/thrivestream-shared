@@ -1,0 +1,1 @@
+ALTER TABLE "whitelist_handle" ALTER COLUMN "handle" DROP NOT NULL;

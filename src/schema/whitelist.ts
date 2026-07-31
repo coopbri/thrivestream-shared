@@ -15,7 +15,11 @@ export const whitelistHandle = pgTable(
     // rename once the row is bound, so the admin list and the /testing page keep
     // showing the handle the person actually has. Identity lives in
     // threadsUserId below; treat this as display state.
-    handle: text("handle").notNull().unique(),
+    // Nullable since sign-in moved to Omni accounts: an invite written against an
+    // email has no Threads handle at all. Postgres permits many NULLs under a
+    // unique index, so several email-only invites coexist; a sentinel like "" could
+    // only ever exist once.
+    handle: text("handle").unique(),
     // The invited person's stable Threads id, bound on their first sign-in. Null
     // until then, because an invite is written by handle before that person has
     // ever signed in and their id cannot be known yet. Once bound this is what
