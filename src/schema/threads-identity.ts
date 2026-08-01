@@ -6,6 +6,10 @@ export const threadsIdentity = pgTable("threads_identity", {
     .primaryKey()
     .references(() => user.id),
   threadsUserId: text("threads_user_id").notNull().unique(),
+  // The connected Threads @handle, captured so profile "Follow on Threads"
+  // links survive the handle becoming the Omni username. Nullable: backfilled in
+  // the background on sign-in, so a freshly connected row may not have it yet
+  threadsUsername: text("threads_username"),
   accessToken: text("access_token").notNull(),
   refreshToken: text("refresh_token"),
   expiresAt: timestamp("expires_at", { withTimezone: true }),

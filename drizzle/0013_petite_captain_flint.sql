@@ -1,0 +1,1 @@
+ALTER TABLE "threads_identity" ADD COLUMN "threads_username" text;
