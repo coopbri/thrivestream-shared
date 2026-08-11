@@ -1,12 +1,4 @@
-import {
-  boolean,
-  index,
-  integer,
-  pgTable,
-  text,
-  timestamp,
-  uuid,
-} from "drizzle-orm/pg-core";
+import { boolean, index, integer, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 import { user } from "./user";
 
 export const stream = pgTable(
@@ -41,6 +33,13 @@ export const stream = pgTable(
     // (enforced server-side in the streamVisibility plugin). Independent of
     // recordingExpiresAt, so the retention reaper still applies either way.
     recordingPublic: boolean("recording_public").notNull().default(false),
+    // Per-stream audience visibility for "ghost streams". Public streams are
+    // listed and watchable by anyone; unlisted streams are reachable only by
+    // direct link; followers_only streams are limited to the creator's
+    // followers (enforced server-side). Public by default so existing streams
+    // and pre-toggle clients are unchanged. Validated app-side against
+    // STREAM_VISIBILITY (text, not pgEnum, per house style).
+    visibility: text("visibility").notNull().default("public"),
     // When the recording should be deleted. The worker reaper removes the stored
     // objects past this instant and nulls the URLs above (Garage has no native
     // lifecycle; R2 would use a bucket rule). Null while unset or while kept; a
@@ -70,3 +69,6 @@ export type StreamStatus = (typeof STREAM_STATUS)[number];
 
 export const STREAM_ORIENTATION = ["landscape", "portrait"] as const;
 export type StreamOrientation = (typeof STREAM_ORIENTATION)[number];
+
+export const STREAM_VISIBILITY = ["public", "unlisted", "followers_only"] as const;
+export type StreamVisibility = (typeof STREAM_VISIBILITY)[number];

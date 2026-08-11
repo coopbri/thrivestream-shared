@@ -1,0 +1,1 @@
+ALTER TABLE "stream" ADD COLUMN "visibility" text DEFAULT 'public' NOT NULL;

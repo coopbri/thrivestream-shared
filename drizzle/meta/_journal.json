@@ -99,6 +99,13 @@
       "when": 1785607303524,
       "tag": "0013_petite_captain_flint",
       "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1786464236069,
+      "tag": "0014_tan_tinkerer",
+      "breakpoints": true
     }
   ]
 }
