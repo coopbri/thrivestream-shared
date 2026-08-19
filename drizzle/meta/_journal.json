@@ -120,6 +120,13 @@
       "when": 1787155334980,
       "tag": "0016_superb_squadron_sinister",
       "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1787168480410,
+      "tag": "0017_curly_titania",
+      "breakpoints": true
     }
   ]
 }

@@ -23,6 +23,8 @@ export const originApplication = pgTable(
     links: text("links"),
     // Freeform audience size or context; optional
     audience: text("audience"),
+    // Freeform catch-all ("anything else?") from the applicant; optional
+    notes: text("notes"),
     // One of ORIGIN_APPLICATION_STATUS, validated app-side (text, not pgEnum)
     status: text("status").notNull().default("pending"),
     reviewerNote: text("reviewer_note"),

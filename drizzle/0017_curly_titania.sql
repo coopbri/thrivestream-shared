@@ -1,0 +1,1 @@
+ALTER TABLE "origin_application" ADD COLUMN "notes" text;
