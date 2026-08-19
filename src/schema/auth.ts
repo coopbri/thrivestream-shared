@@ -18,6 +18,12 @@ export const user = pgTable("user", {
   // so admin follows the account through a rename, and so a handle that changes
   // hands never carries the role with it.
   role: text("role"),
+  // Broadcaster capability: only Origin Streamers (this flag) or admins may
+  // create a stream or go live. Stamped on sign-in from the Origin roster
+  // (whitelist_handle) and on admin approval of an origin_application. Read-only
+  // over GraphQL (user is READ_ONLY in generatedWritesHardening), so it can only
+  // be set server-side.
+  isOriginStreamer: boolean("is_origin_streamer").notNull().default(false),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
   updatedAt: timestamp("updated_at", { withTimezone: true })
     .defaultNow()

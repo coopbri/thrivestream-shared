@@ -6,5 +6,6 @@ export * from "./stream-guest";
 export * from "./chat-message";
 export * from "./chat-moderation";
 export * from "./mirror-job";
+export * from "./origin-application";
 export * from "./stream-clip";
 export * from "./whitelist";
