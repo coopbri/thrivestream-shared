@@ -1,0 +1,1 @@
+DROP TABLE "whitelist_handle" CASCADE;

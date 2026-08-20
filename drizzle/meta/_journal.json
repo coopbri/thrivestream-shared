@@ -134,6 +134,13 @@
       "when": 1787243884157,
       "tag": "0018_spooky_newton_destine",
       "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1787249485590,
+      "tag": "0019_smooth_squirrel_girl",
+      "breakpoints": true
     }
   ]
 }
