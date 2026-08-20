@@ -19,6 +19,9 @@ export const originApplication = pgTable(
     displayName: text("display_name").notNull(),
     // Freeform: what they stream and why they want in
     pitch: text("pitch").notNull(),
+    // Applicant-entered Threads handle (normalized, no leading @); optional.
+    // Used to @mention approved streamers when sharing their welcome on social
+    threadsHandle: text("threads_handle"),
     // Newline or space separated URLs (socials, portfolio); optional
     links: text("links"),
     // Freeform audience size or context; optional

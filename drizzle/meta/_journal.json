@@ -127,6 +127,13 @@
       "when": 1787168480410,
       "tag": "0017_curly_titania",
       "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1787243884157,
+      "tag": "0018_spooky_newton_destine",
+      "breakpoints": true
     }
   ]
 }
