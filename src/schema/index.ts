@@ -7,6 +7,7 @@ export * from "./chat-message";
 export * from "./chat-moderation";
 export * from "./mirror-job";
 export * from "./origin-application";
+export * from "./origin-roster";
 export * from "./stream-clip";
 export * from "./stream-reminder";
 export * from "./notification";
