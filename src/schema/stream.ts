@@ -56,6 +56,10 @@ export const stream = pgTable(
     // ladder sweep never reprocesses it. Gated behind FLAG_RECORDING_LADDER; when
     // the flag is off this stays false and no ladder work runs.
     recordingLadderReady: boolean("recording_ladder_ready").notNull().default(false),
+    // Set when the worker has fired the pre-start reminder push for this
+    // scheduled stream, so the T-30 sweep never double-sends. Null until then and
+    // for streams that never had a future scheduled_for.
+    reminderSentAt: timestamp("reminder_sent_at", { withTimezone: true }),
     startedAt: timestamp("started_at", { withTimezone: true }),
     endedAt: timestamp("ended_at", { withTimezone: true }),
     viewerPeak: integer("viewer_peak").notNull().default(0),
