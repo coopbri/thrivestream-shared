@@ -13,6 +13,9 @@ export const user = pgTable("user", {
   email: text("email").notNull().unique(),
   emailVerified: boolean("email_verified").default(false).notNull(),
   image: text("image"),
+  // Blur-up preview of `image` (a ~16px webp data URI), made when the avatar is
+  // mirrored into our storage. Null until then, and the app renders as before
+  lqip: text("lqip"),
   // Authoritative admin marker, bootstrapped once from ADMIN_HANDLES (see
   // lib/adminPolicy) and read on every admin check thereafter. Lives on the row
   // so admin follows the account through a rename, and so a handle that changes
